@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "326683536230",
+    "firebase_url": "https://simplenotification-4ab26.firebaseio.com",
+    "project_id": "simplenotification-4ab26",
+    "storage_bucket": "simplenotification-4ab26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326683536230:android:f4fec367f1b92a683876a7",
+        "android_client_info": {
+          "package_name": "com.icedgrape.simplenotification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326683536230-kaqfnt6l6nndjc4733me47rniapc8rd2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.icedgrape.simplenotification",
+            "certificate_hash": "e3ff7011defdb26cb5543c38ee8e56310f9f8005"
+          }
+        },
+        {
+          "client_id": "326683536230-unlfqog2pe29qh2ll0342kevd7buakp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXJH7rcaJviDSSiCmQSms_IqwjJdwdTj8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "326683536230-unlfqog2pe29qh2ll0342kevd7buakp1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
