@@ -3,6 +3,8 @@ package com.icedgrape.simplenotification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,4 +86,24 @@ public class Billboard extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main_ui_menu, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
+        case R.id.btnLogut:
+            Toasty.success(this, "Logging out " + ParseUser.getCurrentUser().getUsername(),Toasty.LENGTH_LONG).show();
+            ParseUser.logOut();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            return(true);
+    }
+        return(super.onOptionsItemSelected(item));
+    }
+
 }
