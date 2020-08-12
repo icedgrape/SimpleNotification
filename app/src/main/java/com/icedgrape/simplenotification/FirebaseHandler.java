@@ -24,6 +24,13 @@ public class FirebaseHandler extends FirebaseMessagingService {
             NotificationHelper.displayNotification(getApplicationContext(), title, body);
 
         }
+        if (remoteMessage.getData().size() > 0) {
+            Log.d("full data", "Data: " + remoteMessage.getData()); //Whole data
+            String title = remoteMessage.getData().get("title"); //Get title key data
+            String body = remoteMessage.getData().get("body");
+
+            NotificationHelper.displayNotification(getApplicationContext(), title, body);
+        }
 
     }
     public void onNewToken(String token) {
