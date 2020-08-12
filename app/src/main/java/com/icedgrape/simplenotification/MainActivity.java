@@ -3,8 +3,13 @@ package com.icedgrape.simplenotification;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +28,8 @@ import com.parse.SignUpCallback;
 
 import es.dmoral.toasty.Toasty;
 
+import static com.icedgrape.simplenotification.R.raw.bells;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String CHANNEL_ID = "com.icedgrape.simplenotification.updates";
@@ -37,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Uri uri = RingtoneManager.getDefaultUri(bells);
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword =findViewById(R.id.edtPassword);
         progressBar = findViewById(R.id.progressBar);
@@ -47,8 +54,28 @@ public class MainActivity extends AppCompatActivity {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            Log.i("Channel", "Channel " + CHANNEL_ID + " deleted");
+            notificationManager.deleteNotificationChannel(CHANNEL_ID);
+        }
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+
+            AudioAttributes att = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .build();
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(CHANNEL_DESCRIPTION);
+            channel.setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" + getApplicationContext().getPackageName() +"/"+ bells), att);
+            channel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            channel.enableVibration(true);
+            channel.setImportance(NotificationManager.IMPORTANCE_HIGH);
+            channel.enableLights(true);
+            channel.setBypassDnd(true);
+            channel.setShowBadge(true);
+            channel.setLockscreenVisibility(1);
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
 

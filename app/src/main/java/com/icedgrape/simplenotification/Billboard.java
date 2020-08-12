@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -97,7 +98,12 @@ public class Billboard extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
         case R.id.btnLogut:
             Toasty.success(this, "Logging out " + ParseUser.getCurrentUser().getUsername(),Toasty.LENGTH_LONG).show();
-            ParseUser.logOut();
+            ParseUser.logOutInBackground(new LogOutCallback() {
+                @Override
+                public void done(ParseException e) {
+                    Toasty.success(getApplicationContext(), "Logged out " + ParseUser.getCurrentUser().getUsername(),Toasty.LENGTH_LONG).show();
+                }
+            });
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
